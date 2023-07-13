@@ -28,6 +28,11 @@ public class AdminServlet extends HttpServlet {
 
             String username = request.getParameter("username");
             String acctType = request.getParameter("accttypes");
+
+            // Sanitize and escape the user input
+            username = StringEscapeUtils.escapeSql(username);
+            acctType = StringEscapeUtils.escapeSql(acctType);
+
             if (username == null || acctType == null || username.trim().length() == 0 || acctType.trim().length() == 0) {
                 LOG.error("Inserted data null or empty for addAccount operation.");
                 message = "An error has occurred. Please try again later.";
