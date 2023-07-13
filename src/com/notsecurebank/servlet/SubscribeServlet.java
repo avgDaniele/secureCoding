@@ -14,6 +14,8 @@ import org.apache.log4j.Logger;
 import com.notsecurebank.util.DBUtil;
 import com.notsecurebank.util.ServletUtil;
 
+import org.owasp.esapi.ESAPI;
+
 public class SubscribeServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private static final Logger LOG = LogManager.getLogger(SubscribeServlet.class);
@@ -22,6 +24,7 @@ public class SubscribeServlet extends HttpServlet {
         LOG.info("doPost");
 
         String email = request.getParameter("txtEmail");
+        email = ESAPI.encoder().encodeForHTML(email);
         if (email == null || !ServletUtil.isValidEmail(email)) {
             LOG.error("Invalid e-mail: '" + email + "'.");
             response.sendRedirect("index.jsp");
