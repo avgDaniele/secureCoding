@@ -84,6 +84,9 @@ public class AdminAPI extends NotSecureBankAPI {
             String response = "{\"loggedIn\" : \"false\"}";
             return Response.status(400).entity(response).build();
         }
+        if(ServletUtil.getUser(request).getRole() == User.Role.Admin){
+            return Response.status(500).entity("{\"Error\": \"Not an admin\"}").build();
+        }
 
         String firstname;
         String lastname;
